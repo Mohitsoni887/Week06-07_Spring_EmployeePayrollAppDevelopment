@@ -1,3 +1,4 @@
+
 package com.bridgelabz.employeepayrollapp.model;
 import jakarta.persistence.*;
 

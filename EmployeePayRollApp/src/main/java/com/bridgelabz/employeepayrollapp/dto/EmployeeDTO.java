@@ -1,33 +1,22 @@
 
-package com.bridgelabz.employeepayrollapp.model;
-
-
-import jakarta.persistence.*;
-
-@Entity
-@Table(name = "employees")
-public class Employee {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+package com.bridgelabz.employeepayrollapp.dto;
+public class EmployeeDTO {
 
     private String name;
 
     private double salary;
 
-    // No-argument constructor (default)
-    public Employee() {
+    public EmployeeDTO() {
     }
 
-    // Parameterized constructor
-    public Employee(String name,  double salary) {
+    public EmployeeDTO(String name, double salary) {
 
         this.name = name;
 
         this.salary = salary;
     }
 
-    // Getters and Setters
+// Getters and Setters
 
 
     public String getName() {
@@ -37,7 +26,6 @@ public class Employee {
     public void setName(String name) {
         this.name = name;
     }
-
 
 
     public double getSalary() {

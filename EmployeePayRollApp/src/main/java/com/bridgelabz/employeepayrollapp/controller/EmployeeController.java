@@ -1,10 +1,13 @@
+
 package com.bridgelabz.employeepayrollapp.controller;
 
 
+import com.bridgelabz.employeepayrollapp.dto.EmployeeDTO;
+
 import com.bridgelabz.employeepayrollapp.model.Employee;
-import com.bridgelabz.employeepayrollapp.repository.EmployeeRepository;
 import com.bridgelabz.employeepayrollapp.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,10 +17,11 @@ import java.util.List;
 public class EmployeeController {
     private final EmployeeService service;
 
+    @Autowired
     public EmployeeController(EmployeeService service) {
         this.service = service;
     }
-    @Autowired
+   /* @Autowired
     private EmployeeRepository employeeRepository;
 
 
@@ -44,5 +48,19 @@ public class EmployeeController {
     @DeleteMapping("/{id}")
     public void deleteEmployee(@PathVariable Long id) {
         service.deleteEmployee(id);
+    }*/
+
+
+    @PostMapping
+    public ResponseEntity<Employee> createEmployee(@RequestBody EmployeeDTO employeeDTO) {
+        Employee employee = service.createEmployee(employeeDTO);
+        return ResponseEntity.ok(employee);
     }
+
+    @GetMapping
+    public ResponseEntity<List<Employee>> getAllEmployees() {
+        return ResponseEntity.ok(service.getAllEmployees());
+    }
+
+
 }

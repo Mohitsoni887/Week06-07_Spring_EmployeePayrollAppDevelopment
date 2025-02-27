@@ -1,3 +1,4 @@
+
 package com.bridgelabz.employeepayrollapp.validation;
 public class EmployeeNotFoundException extends RuntimeException {
     public EmployeeNotFoundException(String message) {

@@ -1,3 +1,4 @@
+
 package com.bridgelabz.employeepayrollapp.model;
 
 
@@ -7,15 +8,15 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 
+
 @Entity
 @Table(name = "employee")
 @AllArgsConstructor
 public class Employee {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)  // Auto-generates unique IDs
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String name;
     private double salary;
 

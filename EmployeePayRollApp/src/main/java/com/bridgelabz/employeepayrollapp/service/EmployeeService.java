@@ -1,3 +1,4 @@
+
 package com.bridgelabz.employeepayrollapp.service;
 
 import com.bridgelabz.employeepayrollapp.dto.EmployeeDTO;
@@ -80,6 +81,12 @@ public class EmployeeService {
                 .orElseThrow(() -> new EmployeeNotFoundException("Employee not found with ID: " + id));
     }
 
+    /*public Employee createEmployeeData(EmployeeDTO employeeDTO){
+       Employee employee = null;
+       employee = new Employee(employeeDTO);
+       log.debug("Emp Data :"+employee.toString());
+       return repository.save(employee);
+    }*/
     public Employee saveEmployee(EmployeeDTO employeeDTO) {
         Employee employee = new Employee();
         employee.setName(employeeDTO.getName());

@@ -1,17 +1,14 @@
-
 package com.bridgelabz.employeepayrollapp.service;
 
 import com.bridgelabz.employeepayrollapp.dto.EmployeeDTO;
 import com.bridgelabz.employeepayrollapp.model.Employee;
 import com.bridgelabz.employeepayrollapp.repository.EmployeeRepository;
 import com.bridgelabz.employeepayrollapp.validation.EmployeeNotFoundException;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
-
 
 @Service
 @Slf4j
@@ -73,30 +70,38 @@ public class EmployeeService {
     @Autowired
     private EmployeeRepository repository;
 
-    public List<Employee> getAllEmployees() {
-        return repository.findAll();
-    }
+    public List<Employee> getAllEmployees() { return repository.findAll(); }
     public Employee getEmployeeById(Long id) {
-        return repository.findById(id).orElse(null);
+        return repository.findById(id)
+                .orElseThrow(() -> new EmployeeNotFoundException("Employee not found with ID: " + id));
     }
+
     public Employee saveEmployee(EmployeeDTO employeeDTO) {
-        Employee employee = new Employee(employeeDTO.getName(), employeeDTO.getSalary());
+        Employee employee = new Employee();
+        employee.setName(employeeDTO.getName());
+        employee.setSalary(employeeDTO.getSalary());
+        employee.setGender(employeeDTO.getGender());
+        employee.setStartDate(employeeDTO.getStartDate());
+        employee.setNote(employeeDTO.getNote());
+        employee.setProfilePic(employeeDTO.getProfilePic());
+        employee.setDepartment(employeeDTO.getDepartment());
         return repository.save(employee);
     }
-
-    public Employee updateEmployee(Long id, EmployeeDTO employeeDTO) {
-        Employee existingEmployee = repository.findById(id)
-                .orElseThrow(() -> new EmployeeNotFoundException("Employee not found with ID: " + id));
-
-        existingEmployee.setName(employeeDTO.getName());
-        existingEmployee.setSalary(employeeDTO.getSalary());
-        return repository.save(existingEmployee);
-    }
-
     public void deleteEmployee(Long id) {
         if (!repository.existsById(id)) {
             throw new EmployeeNotFoundException("Employee not found with ID: " + id);
         }
-        repository.deleteById(id);
+        repository.deleteById(id); }
+
+
+    public Employee updateEmployee(Long id, EmployeeDTO updatedEmployee) {
+        Employee existingEmployee = repository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Employee with ID " + id + " not found"));
+
+        existingEmployee.setName(updatedEmployee.getName());
+        existingEmployee.setSalary(updatedEmployee.getSalary());
+
+        return repository.save(existingEmployee);
     }
+
 }

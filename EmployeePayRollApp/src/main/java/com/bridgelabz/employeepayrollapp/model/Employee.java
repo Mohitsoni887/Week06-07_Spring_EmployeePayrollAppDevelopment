@@ -16,15 +16,22 @@ import java.util.List;
 public @Data class Employee {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name ="id")
     public Long id;
+
+    @Column(name ="name")
     public String name;
+
     public double salary;
     public String gender;
     public LocalDate startDate;
     public String note;
     public String profilePic;
-    public String department;
+    @ElementCollection
+    @CollectionTable(name = "employee_department",joinColumns = @JoinColumn(name = "id"))
+    @Column(name = "Department")
+    public List<String> department;
 
     public Employee() {}
 

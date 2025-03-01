@@ -1,4 +1,3 @@
-
 package com.bridgelabz.employeepayrollapp.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -9,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Data  // Generates Getters, Setters, toString(), equals(), and hashCode()
 @NoArgsConstructor
@@ -39,5 +39,5 @@ public @ToString class EmployeeDTO {
     public String profilePic;
 
     @NotNull(message = "department cannot be Empty")
-    public String department;
+    public List<String> department;
 }
